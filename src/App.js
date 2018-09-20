@@ -1,18 +1,30 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import LoginContainer from "./containers/LoginContainer";
+import RegisterContainer from "./containers/RegisterContainer";
+import ChatContainer from "./containers/ChatContainer";
 
 class App extends Component {
+  state = {
+    page: "login",
+    user: null
+  };
+
+  componentDidMount() {
+    if (this.state.user != null) {
+      this.setState({
+        page: "chat"
+      });
+    }
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="container">
+        {this.state.page === "login" && <LoginContainer />}
+        {this.state.page === "register" && <RegisterContainer />}
+        {this.state.page === "chat" && <ChatContainer />}
       </div>
     );
   }
